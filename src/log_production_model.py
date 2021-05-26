@@ -21,7 +21,7 @@ def log_production_model(config_path):
     client = MlflowClient()
     for mv in client.search_model_versions(f"name='{model_name}'"):
         mv = dict(mv)
-        #pprint(mv, indent=4)
+        
         if mv["run_id"] == lowest_run_id:
             current_version = mv["version"]
             logged_model = mv["source"]

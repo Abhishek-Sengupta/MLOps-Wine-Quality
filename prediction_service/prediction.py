@@ -56,7 +56,6 @@ def validate_input(dict_request):
 
     def _validate_values(col, val):
         schema = get_schema()
-
         if not (schema[col]["min"] <= float(dict_request[col]) <= schema[col]["max"]) :
             raise NotInRange
 
@@ -68,10 +67,15 @@ def validate_input(dict_request):
 
 # Return prediction for form response
 def form_response(dict_request):
-    if validate_input(dict_request):
-        data = dict_request.values()
-        data = [list(map(float, data))]
-        response = predict(data)
+    try:
+        if validate_input(dict_request):
+            data = dict_request.values()
+            data = [list(map(float, data))]
+            response = predict(data)
+            return response
+    
+    except NotInRange as e:
+        response = str(e)
         return response
 
 # Return prediction for api response

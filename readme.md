@@ -90,7 +90,12 @@ Refer to -
 /prediction_service/prediction.py
 /tests/test_config.py
 
-### Create and configure tox.ini file and add different environments to carry out tests on
+### To run tests and check if all the test cases are passed, run-
+```bash
+pytest -v
+```
+
+### Create and configure tox.ini file and add environments to carry out tests on
 To run tests on the environments, ensure test cases are added to /tests/test_config.py, & run-
 ```bash
 tox
@@ -153,8 +158,8 @@ This would create a sqlite db in current working directory to store the logs & m
 ```bash
 dvc repro
 ```
-Now, refresh http://127.0.0.1:5000/ to find the new experiment added.
+Now, refresh http://127.0.0.1:5000/ to find the new experiment added.<br />
 Also check that in /artifacts/, for each model, a folder named with a unique run id is created, which stores the model in .pkl format
 - In mlflow UI, select existing model from the experiment, and change its stage from staging to production
 - Create a file /src/log_production.py to push that model version into production which has the lowest mae (metric), and move previous model in production to staging area
-- Check Heroku url, where the model is deployed
+- Check Heroku url, where the web application is running
