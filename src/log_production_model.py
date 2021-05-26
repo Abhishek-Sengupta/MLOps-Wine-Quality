@@ -6,28 +6,18 @@ from pprint import pprint
 import joblib
 import os
 
-
-
 def log_production_model(config_path):
+    
     config = read_params(config_path)
-    
-    
-    mlflow_config = config["mlflow_config"] 
-    
-
+    mlflow_config = config["mlflow_config"]
     model_name = mlflow_config["registered_model_name"]
-
-
     remote_server_uri = mlflow_config["remote_server_uri"]
-
     mlflow.set_tracking_uri(remote_server_uri)
-    
     
     runs = mlflow.search_runs(experiment_ids=1)
     lowest = runs["metrics.mae"].sort_values(ascending=True)[0]
-    lowest_run_id = runs[runs["metrics.mae"] == lowest]["run_id"][0]
+    lowest_run_id = runs[runs["metrics.mae"] == lowest]["run_id"][0]    #get the run id for the model which has the lowest mae
     
-
     client = MlflowClient()
     for mv in client.search_model_versions(f"name='{model_name}'"):
         mv = dict(mv)
@@ -49,12 +39,10 @@ def log_production_model(config_path):
                 stage="Staging"
             )        
 
-
     loaded_model = mlflow.pyfunc.load_model(logged_model)
-    
     model_path = config["webapp_model_dir"] #"prediction_service/model"
-
-    joblib.dump(loaded_model, model_path)
+    
+    joblib.dump(loaded_model, model_path)   #store the loaded model to model_path
 
 
 if __name__ == '__main__':

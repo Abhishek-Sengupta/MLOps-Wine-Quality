@@ -10,7 +10,7 @@ import numpy as np
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import ElasticNet
-from get_data import read_params
+from src.get_data import read_params
 from urllib.parse import urlparse
 import argparse
 import joblib
@@ -44,7 +44,7 @@ def train_and_evaluate(config_path):
     train_x = train.drop(target, axis=1)
     test_x = test.drop(target, axis=1)
 
-################### MLFLOW ###############################
+#--------- Configure MLFLOW Tracking Server ---------
     mlflow_config = config["mlflow_config"]
     remote_server_uri = mlflow_config["remote_server_uri"]
 
