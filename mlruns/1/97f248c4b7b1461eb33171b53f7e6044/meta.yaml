@@ -1,0 +1,15 @@
+artifact_uri: ./mlruns/1/97f248c4b7b1461eb33171b53f7e6044/artifacts
+end_time: 1622010100484
+entry_point_name: ''
+experiment_id: '1'
+lifecycle_stage: active
+name: ''
+run_id: 97f248c4b7b1461eb33171b53f7e6044
+run_uuid: 97f248c4b7b1461eb33171b53f7e6044
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1622010100253
+status: 4
+tags: []
+user_id: abhishek

@@ -135,3 +135,22 @@ Add Gunicorn as WSGI HTTP server, which is used to forward requests from a web s
 - See if the build runs fine in github actions
 - See the Webapp hosted on Heroku on the app url provided in Heroku-settings
 - https://wine-quality-prediction-mlops.herokuapp.com/
+
+
+# Integrating MLFlow
+
+- Add mlflow configurations in params.yaml
+- Add mlflow tracker to track and log parameters and metrics in /src/train_and_evaluate.py
+- create a directory in the root /artifacts
+- Run mlflow server command -
+```bash
+mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root ./artifacts --host 127.0.0.1 -p 5000
+```
+This would create a sqlite db in current working directory to store the logs & model artifacts would be stored in /artifacts/
+- From another terminal, run-
+```bash
+dvc repro
+```
+Now, refresh http://127.0.0.1:5000/ to find the new experiment added.
+Also check that in /artifacts/, for each model, a folder named with a unique run id is created, which stores the model in .pkl format
+
