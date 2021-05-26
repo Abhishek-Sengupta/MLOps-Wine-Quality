@@ -21,7 +21,7 @@ def log_production_model(config_path):
     client = MlflowClient()
     for mv in client.search_model_versions(f"name='{model_name}'"):
         mv = dict(mv)
-        
+        #pprint(mv, indent=4)
         if mv["run_id"] == lowest_run_id:
             current_version = mv["version"]
             logged_model = mv["source"]
@@ -40,7 +40,7 @@ def log_production_model(config_path):
             )        
 
     loaded_model = mlflow.pyfunc.load_model(logged_model)
-    model_path = config["webapp_model_dir"] #"prediction_service/model"
+    model_path = config["webapp_model_dir"] #prediction_service/model
     
     joblib.dump(loaded_model, model_path)   #store the loaded model to model_path
 

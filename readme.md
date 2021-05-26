@@ -139,6 +139,8 @@ Add Gunicorn as WSGI HTTP server, which is used to forward requests from a web s
 
 # Integrating MLFlow
 
+- Create a new branch out of main, for integrtating mlflow
+- Update new branch name in /github/workflows/ci-cd.yaml
 - Add mlflow configurations in params.yaml
 - Add mlflow tracker to track and log parameters and metrics in /src/train_and_evaluate.py
 - create a directory in the root /artifacts
@@ -153,4 +155,6 @@ dvc repro
 ```
 Now, refresh http://127.0.0.1:5000/ to find the new experiment added.
 Also check that in /artifacts/, for each model, a folder named with a unique run id is created, which stores the model in .pkl format
-
+- In mlflow UI, select existing model from the experiment, and change its stage from staging to production
+- Create a file /src/log_production.py to push that model version into production which has the lowest mae (metric), and move previous model in production to staging area
+- Check Heroku url, where the model is deployed
